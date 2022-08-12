@@ -5,7 +5,6 @@ py -m pylint docx2html.py
 Your code has been rated at 10.00/10
 """
 import sys
-import os
 from datetime import datetime
 import mammoth
 from git import Repo
@@ -24,7 +23,7 @@ def upload2github(filename):
     repo = Repo.init(f'{PATH}')
     assert isinstance(repo, Repo)
 
-    print(f'INFO : Git repo is initiated.')
+    print('INFO : Git repo is initiated.')
 
     # To check configuration values, use `config_reader()`
     # using ~/.ssh/id_ed25519
@@ -35,17 +34,17 @@ def upload2github(filename):
     index = repo.index
     index.add([filename])
 
-    print(f'INFO : Git changes to html are staged.')
+    print('INFO : Git changes to html are staged.')
 
     # Commit the change
     index.commit(dt_string)
 
-    print(f'INFO : Git stages are committed.')
+    print('INFO : Git stages are committed.')
     # push the commit
     origin = repo.remote(name='origin')
     origin.push()
 
-    print(f'INFO : Git commits are pushed to {url}.')  
+    print(f'INFO : Git commits are pushed to {url}.')
 
 def process(fname):
     """ can be processed for one specific year
@@ -56,8 +55,8 @@ def process(fname):
         result = mammoth.convert_to_html(docx_file)
         html = result.value
 
-    print(f'INFO : docx is converted to html.')
-    
+    print('INFO : docx is converted to html.')
+
     html = '<!doctype html><html lang="fr"><head><meta charset="utf-8">' \
             '<title>Mutation managériale</title>' \
             '<link rel="stylesheet" href="css/style.css" />' \
@@ -66,13 +65,13 @@ def process(fname):
     for tag in TAGS:
         html = html.replace(f'<{tag}', f'\n<{tag}')
 
-    print(f'INFO : html is reformatted.')
+    print('INFO : html is reformatted.')
 
     output_filename = PATH + "index.html"
     with open(output_filename, "w", encoding="utf-8") as fout:
         fout.writelines(html)
 
-    print(f'INFO : html file is saved.')
+    print('INFO : html file is saved.')
 
     upload2github(output_filename)
 
