@@ -67,7 +67,7 @@ def process(fname):
 
     print('INFO : html is reformatted.')
 
-    output_filename = PATH + "index.html"
+    output_filename = PATH + fname + ".html"
     with open(output_filename, "w", encoding="utf-8") as fout:
         fout.writelines(html)
 
